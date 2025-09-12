@@ -376,16 +376,30 @@ footer .year {
 
 
 /* 📱 Responsive: en móvil más pequeño y debajo de la tarjeta */
+/* Ajuste general del contenedor para móviles */
 @media (max-width: 768px) {
+  .main-container {
+    flex-direction: column; /* tarjeta arriba, carrusel abajo */
+    align-items: center;
+  }
+
+  .wrap {
+    height: auto; /* se adapta al contenido */
+    padding: 20px 0;
+  }
+
   .carousel {
     width: 90%;
     max-width: 400px;
-    height: 240px;
-    margin-top: 30px;
+    margin-top: 20px;
+  }
+
+  .slides img {
+    height: 100%; /* se ajusta a la altura del carrusel */
   }
 }
 
-/* 📱 Móviles más pequeños */
+/* Pantallas muy pequeñas (iPhone SE, por ejemplo) */
 @media (max-width: 480px) {
   .carousel {
     height: 200px;
@@ -403,4 +417,3 @@ footer .year {
     height: 90px;
   }
 }
-
