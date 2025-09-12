@@ -75,6 +75,12 @@ body{
   margin:0 auto 10px;
 }
 
+.logo svg {
+    width: 50px;
+    height: 50px;
+}
+
+
 .logo svg path {
   fill: #1e293b; /* oscuro para que se vea */
 }
