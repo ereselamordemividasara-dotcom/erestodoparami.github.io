@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tarjeta de Amor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- lienzo del fondo animado -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- 🥰 Contenedor tarjeta + carrusel -->
+  <div class="main-container">
+
+    <!-- 💌 Tarjeta -->
+    <div class="wrap">
+      <div class="card" role="article" aria-label="Tarjeta digital de amor">
+        <header>
+          <div class="logo" aria-hidden>
+            <svg viewBox="0 0 24 24">
+              <path d="M12 20s-7-4.6-9-8.5C0 6.9 4.1 3 7.6 5.1 
+              10 6.8 12 9 12 9s2-2.2 4.4-3.9C19.9 3 24 6.9 
+              21 11.5 19 15.4 12 20 12 20z" fill="white"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Para ti, con amor</h1>
+            <p class="subtitle">Toca el corazón y descubre mi secreto 💌</p>
+          </div>
+        </header>
+
+        <div class="heart-area">
+          <div class="heart" id="heartBtn">
+            <svg viewBox="0 0 24 24" class="pulse" id="heartSVG">
+              <path d="M12 21s-7-4.35-9-8.2C0.5 7.9 4.6 4 8.1 6.1 
+              10.5 7.8 12 10 12 10s1.5-2.2 3.9-3.9C19.4 4 
+              23.5 7.9 21 12.8 19 16.65 12 21 12 21z" fill="url(#g)"/>
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#ff8aa3"/>
+                  <stop offset="100%" stop-color="#ff2d6f"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <p class="click-hint" id="clickHint">✨ Haz clic en el corazón ✨</p>
+        </div>
+
+        <footer>
+          Hecho con ❤️ por tu amor  
+          <br>
+          <span class="year">&copy; 2025</span>
+        </footer>
+      </div>
+    </div>
+
+    <!-- 🎠 Carrusel -->
+    <div class="carousel">
+      <div class="slides">
+        <img src="imagenes/foto_1.JPG" alt="Foto 1">
+        <img src="imagenes/foto_2.JPG" alt="Foto 2">
+        <img src="imagenes/foto_3.JPG" alt="Foto 3">
+        <img src="imagenes/foto_4.JPG" alt="Foto 4">
+        <img src="imagenes/foto_5.JPG" alt="Foto 5">  
+        <img src="imagenes/foto_6.JPG" alt="Foto 6">
+        <img src="imagenes/foto_7.JPG" alt="Foto 7">
+        <img src="imagenes/foto_8.JPG" alt="Foto 8">
+        <img src="imagenes/foto_9.JPG" alt="Foto 9">
+        <img src="imagenes/foto_10.JPG" alt="Foto 10">
+        <img src="imagenes/foto_11.JPG" alt="Foto 11">
+        <img src="imagenes/foto_12.JPG" alt="Foto 12">
+        <img src="imagenes/foto_13.JPG" alt="Foto 13">  
+        <img src="imagenes/foto_14.JPG" alt="Foto 14">
+        <img src="imagenes/foto_15.JPG" alt="Foto 15">
+        <img src="imagenes/foto_16.JPG" alt="Foto 16">
+        <img src="imagenes/foto_17.JPG" alt="Foto 17">
+        <img src="imagenes/foto_18.JPG" alt="Foto 18">
+        <img src="imagenes/foto_19.JPG" alt="Foto 19">
+        <img src="imagenes/foto_20.JPG" alt="Foto 20">
+        <img src="imagenes/foto_21.JPG" alt="Foto 21">
+        <img src="imagenes/foto_22.JPG" alt="Foto 22">
+        <img src="imagenes/foto_23.JPG" alt="Foto 23">
+        <img src="imagenes/foto_24.JPG" alt="Foto 24">
+        <img src="imagenes/foto_25.JPG" alt="Foto 25">
+        <img src="imagenes/foto_26.JPG" alt="Foto 26">
+        <img src="imagenes/foto_27.JPG" alt="Foto 27">
+        <img src="imagenes/foto_28.JPG" alt="Foto 28">
+        <img src="imagenes/foto_29.JPG" alt="Foto 29">
+        <img src="imagenes/foto_30.JPG" alt="Foto 30">
+        <img src="imagenes/foto_31.JPG" alt="Foto 31">
+        <img src="imagenes/foto_32.JPG" alt="Foto 32">
+        <!-- Agrega más fotos según necesites -->
+      </div>
+      <button class="prev">‹</button>
+      <button class="next">›</button>
+    </div>
+
+  </div> <!-- cierre main-container -->
+
+  <!-- overlay -->
+  <div class="overlay" id="overlay">
+    <div class="panel">
+      <button class="close" id="closeBtn">✕</button>
+      <canvas class="confetti" id="confetti"></canvas>
+      <div class="content">
+        <h2 id="title">Mi mensaje para ti...</h2>
+        <div class="message">
+          <div class="typed" id="typed"></div>
+          <div class="signature" id="sig"></div>
+        </div>
+
+        <div class="dedicatoria">
+          <h3>Dedicatoria Especial ✨</h3>
+          <p id="typedDedicatoria"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎶 Música de fondo -->
+  <audio id="bgMusic" preload="auto">
+    <source src="musica/cancion.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
