@@ -219,9 +219,28 @@ canvas.confetti{position:absolute;top:0;left:0;width:100%;height:100%;pointer-ev
 
 /* Responsive */
 @media(max-width:768px){
-  .main-container{flex-direction:column; align-items:center;}
-  .wrap{margin-bottom:20px;}
-  .carousel{width:90%; max-width:400px; height:240px;}
+  .main-container{
+  flex-direction:column; 
+  align-items:center;
+}
+
+  .logo {
+    width: 76px;
+    height: 76px;
+  }
+
+  .logo svg {
+    width: 45px;
+    height: 45px;
+  }
+
+  .wrap{
+  margin-bottom:20px;}
+
+  .carousel{
+  width:90%; max-width:400px; 
+  height:240px;
+}
 }
 @media(max-width:480px){
   .carousel{height:200px; 
