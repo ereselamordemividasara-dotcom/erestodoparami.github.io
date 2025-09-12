@@ -14,6 +14,24 @@ body{
   min-height: 100vh;
 }
 
+.site-header {
+  text-align: center;
+  padding: 20px 0;
+  background: linear-gradient(135deg, #ff6b9a, #ffb3c6); /* mismo gradiente que footer */
+  color: #1e293b; /* letras oscuras */
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
 #bgCanvas{
   position:fixed;
   top:0; left:0;
