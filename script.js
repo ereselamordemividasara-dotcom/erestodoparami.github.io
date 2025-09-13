@@ -93,11 +93,12 @@ heartBtn.addEventListener("click", () => {
   startConfetti();
 
   // Iniciar máquina de escribir
-  runTypewriter(typedEl, mensaje, 40, () => {
-    runTypewriter(dedicatoriaEl, dedicatoria, 35, () => {
-      runTypewriter(sigEl, firma, 50);
-    });
+  runTypewriter(typedEl, mensaje, 60, () => {
+  runTypewriter(dedicatoriaEl, dedicatoria, 55, () => {
+    runTypewriter(sigEl, firma, 65);
   });
+});
+
 });
 
 // Cerrar overlay
