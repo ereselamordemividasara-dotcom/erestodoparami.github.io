@@ -8,20 +8,28 @@ const sigEl = document.getElementById("sig");
 const confettiCanvas = document.getElementById("confetti");
 const bgMusic = document.getElementById("bgMusic");
 
-// 🎉 Mensajes
+// Mensajes
 const mensaje = "Desde que entraste en mi vida, los días tienen más color, las noches más estrellas y mi corazón más motivos para sonreír. ❤️";
 const dedicatoria = "Esta tarjeta es solo un reflejo de lo mucho que significas para mí.\nEres mi inspiración, mi alegría y mi razón de soñar cada día.\nGracias por existir y llenar mi vida de magia. 💖";
 const firma = "- Con todo mi amor";
 
-// 🖊 Efecto máquina de escribir
+// Efecto máquina de escribir
+let typewriterTimers = [];
+
 function runTypewriter(el, text, speed = 50, callback) {
   el.textContent = "";
   let i = 0;
+
+  // Limpiar timers anteriores
+  typewriterTimers.forEach(t => clearTimeout(t));
+  typewriterTimers = [];
+
   function type() {
     if (i < text.length) {
       el.textContent += text[i];
       i++;
-      setTimeout(type, speed);
+      const t = setTimeout(type, speed);
+      typewriterTimers.push(t);
     } else if (callback) {
       callback();
     }
@@ -29,8 +37,9 @@ function runTypewriter(el, text, speed = 50, callback) {
   type();
 }
 
-// 🎈 Confeti
+// Confeti
 let confettiAnimation;
+
 function startConfetti() {
   const ctx = confettiCanvas.getContext("2d");
   confettiCanvas.width = window.innerWidth;
@@ -62,7 +71,7 @@ function startConfetti() {
     confettiAnimation = requestAnimationFrame(draw);
   }
 
-  cancelAnimationFrame(confettiAnimation); // Reiniciar animación
+  cancelAnimationFrame(confettiAnimation);
   draw();
 }
 
@@ -74,10 +83,12 @@ function stopConfetti() {
 
 // Abrir overlay
 heartBtn.addEventListener("click", () => {
-  // Limpiar textos previos
+  // Limpiar textos y timers previos
   typedEl.textContent = "";
   dedicatoriaEl.textContent = "";
   sigEl.textContent = "";
+  typewriterTimers.forEach(t => clearTimeout(t));
+  typewriterTimers = [];
 
   // Reiniciar música
   bgMusic.pause();
@@ -93,12 +104,11 @@ heartBtn.addEventListener("click", () => {
   startConfetti();
 
   // Iniciar máquina de escribir
-  runTypewriter(typedEl, mensaje, 60, () => {
-  runTypewriter(dedicatoriaEl, dedicatoria, 55, () => {
-    runTypewriter(sigEl, firma, 65);
+  runTypewriter(typedEl, mensaje, 65, () => {
+    runTypewriter(dedicatoriaEl, dedicatoria, 60, () => {
+      runTypewriter(sigEl, firma, 70);
+    });
   });
-});
-
 });
 
 // Cerrar overlay
@@ -111,9 +121,13 @@ closeBtn.addEventListener("click", () => {
 
   // Detener confeti
   stopConfetti();
+
+  // Limpiar timers
+  typewriterTimers.forEach(t => clearTimeout(t));
+  typewriterTimers = [];
 });
 
-// 🎠 Carrusel
+// Carrusel
 const slides = document.querySelector('.slides');
 const images = document.querySelectorAll('.slides img');
 const prevBtn = document.querySelector('.prev');
