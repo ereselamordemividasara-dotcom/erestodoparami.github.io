@@ -270,7 +270,13 @@ canvas.confetti{position:absolute;top:0;left:0;width:100%;height:100%;pointer-ev
   }
 
   .wrap{
-  margin-bottom:20px;}
+  margin-bottom:20px;
+
+}
+
+  .close {
+    font-size: 24px;  /* más grande en tablets y móviles */
+  }
 
   .carousel{
   width:90%; max-width:400px; 
@@ -288,8 +294,10 @@ canvas.confetti{position:absolute;top:0;left:0;width:100%;height:100%;pointer-ev
 }
 }
 @media(max-width:480px){
-  .carousel{height:200px; 
-  max-width:320px;}
+  .carousel{
+  height:200px; 
+  max-width:320px;
+}
   .carousel button{width:38px;
   height:38px;
   font-size:18px;
@@ -306,10 +314,14 @@ canvas.confetti{position:absolute;top:0;left:0;width:100%;height:100%;pointer-ev
   width:90px;
   height:90px;
 }
-.message, .dedicatoria p, .signature {
+  .message, .dedicatoria p, .signature {
     font-size: 18px;  /* aún más grande en móviles pequeños */
     line-height: 1.7;
     padding: 12px;
+  }
+
+  .close {
+    font-size: 28px;  /* aún más grande en móviles pequeños */
   }
 
   .dedicatoria h3 {
