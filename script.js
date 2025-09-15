@@ -132,24 +132,48 @@ const images = document.querySelectorAll('.slides img');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
-let index = 0;
+let index = 1; // empezamos en el primer clon
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
 let autoSlide;
 
-// Mostrar slide
+// 🚀 Clonamos primer y último para efecto infinito
+const firstClone = images[0].cloneNode(true);
+const lastClone = images[images.length - 1].cloneNode(true);
+
+slides.appendChild(firstClone);
+slides.insertBefore(lastClone, images[0]);
+
+const allImages = document.querySelectorAll('.slides img');
+
+// Ajuste inicial
+slides.style.transform = `translateX(${-index * 100}%)`;
+
+// 👉 Función para mostrar slide
 function showSlide(i, withTransition = true) {
-  index = (i + images.length) % images.length;
+  index = i;
   slides.style.transition = withTransition ? "transform 0.5s ease" : "none";
   slides.style.transform = `translateX(${-index * 100}%)`;
 }
 
-// Botones
+// 🔁 Cuando termine transición, corregimos clones
+slides.addEventListener("transitionend", () => {
+  if (allImages[index].isSameNode(firstClone)) {
+    index = 1;
+    showSlide(index, false);
+  }
+  if (allImages[index].isSameNode(lastClone)) {
+    index = allImages.length - 2;
+    showSlide(index, false);
+  }
+});
+
+// ⬅️➡️ Botones
 prevBtn.addEventListener('click', () => showSlide(index - 1));
 nextBtn.addEventListener('click', () => showSlide(index + 1));
 
-// Autoplay
+// 🎬 Autoplay
 function startAuto() {
   autoSlide = setInterval(() => showSlide(index + 1), 4000);
 }
@@ -158,7 +182,7 @@ function stopAuto() {
 }
 startAuto();
 
-// Swipe táctil con arrastre
+// 📱 Swipe táctil con arrastre
 slides.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
   currentX = startX;
@@ -181,15 +205,13 @@ slides.addEventListener("touchend", () => {
   const diff = currentX - startX;
   if (Math.abs(diff) > slides.clientWidth / 4) {
     if (diff > 0) {
-      showSlide(index - 1); // swipe derecha
+      showSlide(index - 1);
     } else {
-      showSlide(index + 1); // swipe izquierda
+      showSlide(index + 1);
     }
   } else {
-    showSlide(index); // volver al mismo
+    showSlide(index);
   }
 
   startAuto();
 });
-
-showSlide(0);
