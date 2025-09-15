@@ -96,6 +96,7 @@ h1{font-size:20px}
 /* Carrusel */
 .carousel {
   position: relative;
+  width: 100%;      /* que se adapte al ancho del padre */
   width: 450px;
   height: 300px;
   overflow: hidden;
@@ -117,9 +118,6 @@ h1{font-size:20px}
   object-fit: cover;
   flex-shrink: 0;
   border-radius: 16px;
-  opacity: 0.7;
-  transform: rotate(0deg) scale(0.95);
-  transition: transform 1s ease, opacity 0.8s ease;
 }
 
 .carousel button {
