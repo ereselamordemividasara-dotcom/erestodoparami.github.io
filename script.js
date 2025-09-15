@@ -127,23 +127,82 @@ closeBtn.addEventListener("click", () => {
   typewriterTimers = [];
 });
 
-// Carrusel
+// Carrusel infinito fluido (sin saltos)
 const slides = document.querySelector('.slides');
 const images = document.querySelectorAll('.slides img');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
-let index = 0;
+let index = 1; 
+let autoSlide;
+const interval = 4000;
 
-function showSlide(i) {
-  index = (i + images.length) % images.length;
+// Clonar primera y última imagen
+const firstClone = images[0].cloneNode(true);
+const lastClone = images[images.length - 1].cloneNode(true);
+
+firstClone.id = "first-clone";
+lastClone.id = "last-clone";
+
+slides.appendChild(firstClone);
+slides.insertBefore(lastClone, slides.firstChild);
+
+// Recontar imágenes con clones
+const slideImages = document.querySelectorAll('.slides img');
+const totalSlides = slideImages.length;
+
+// Colocar inicio en la primera imagen real
+slides.style.transform = `translateX(${-index * 100}%)`;
+
+// Función mostrar slide
+function showSlide() {
+  slides.style.transition = "transform 0.6s ease";
   slides.style.transform = `translateX(${-index * 100}%)`;
 }
 
-prevBtn.addEventListener('click', () => showSlide(index - 1));
-nextBtn.addEventListener('click', () => showSlide(index + 1));
+// Reset al llegar a clon
+slides.addEventListener("transitionend", () => {
+  const current = slideImages[index];
+  if (current.id === "first-clone") {
+    slides.style.transition = "none";
+    index = 1;
+    slides.style.transform = `translateX(${-index * 100}%)`;
+  }
+  if (current.id === "last-clone") {
+    slides.style.transition = "none";
+    index = totalSlides - 2;
+    slides.style.transform = `translateX(${-index * 100}%)`;
+  }
+});
 
-// Auto slide cada 4s
-setInterval(() => showSlide(index + 1), 4000);
+// Botones
+nextBtn.addEventListener("click", () => {
+  if (index >= totalSlides - 1) return;
+  index++;
+  showSlide();
+});
 
-showSlide(0);
+prevBtn.addEventListener("click", () => {
+  if (index <= 0) return;
+  index--;
+  showSlide();
+});
+
+// Auto slide infinito
+function startAutoSlide() {
+  autoSlide = setInterval(() => {
+    index++;
+    showSlide();
+  }, interval);
+}
+
+function stopAutoSlide() {
+  clearInterval(autoSlide);
+}
+
+// Pausar auto slide con hover
+slides.addEventListener("mouseenter", stopAutoSlide);
+slides.addEventListener("mouseleave", startAutoSlide);
+
+// Iniciar carrusel
+startAutoSlide();
