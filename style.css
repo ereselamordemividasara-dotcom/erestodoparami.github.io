@@ -94,33 +94,34 @@ h1{font-size:20px}
 .click-hint{margin-top:8px; font-size:14px; opacity:.85; color:var(--accent2);}
 
 /* Carrusel */
-.carousel{
+.carousel {
   position: relative;
   width: 450px;
   height: 300px;
   overflow: hidden;
-  border-radius:16px;
-  box-shadow:0 6px 20px rgba(255,107,154,0.25);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(255,107,154,0.25);
+  animation: fadeIn .8s ease forwards;
 }
 
 .slides {
-  display:flex;
-  width:100%;
-  height:100%;
+  display: flex;
+  width: 100%;
+  height: 100%;
   transition: transform 0.6s ease;
 }
-.slides img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  flex-shrink:0;
-  border-radius:16px;
+
+.slides img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 16px;
 }
 
 .carousel button {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -133,32 +134,28 @@ h1{font-size:20px}
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.8s ease, box-shadow 0.9s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   z-index: 2;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  animation: glow 2s infinite;
 }
 
-/* Efecto al pasar el mouse */
+/* ✨ Hover */
 .carousel button:hover {
   background: #ff6b9a;
   color: white;
-  transform: translateY(-50%) scale(1.2);
   box-shadow: 0 8px 20px rgba(255, 107, 154, 0.6);
+  transform: scale(1.2) translateY(-50%); /* 🔥 mantiene la posición y añade zoom */
 }
 
-/* ✨ Animación de brillo */
+/* Animación brillo */
 @keyframes glow {
   0%   { box-shadow: 0 0 6px rgba(255,107,154,0.4); }
   50%  { box-shadow: 0 0 18px rgba(255,107,154,0.8); }
   100% { box-shadow: 0 0 6px rgba(255,107,154,0.4); }
 }
 
-.carousel button {
-  animation: glow 2s infinite;
-}
-
-/* Posiciones */
-
+/* Posiciones con rotación */
 .carousel .prev {
   left: 14px;
   transform: translateY(-50%) rotate(-45deg);
@@ -167,6 +164,15 @@ h1{font-size:20px}
 .carousel .next {
   right: 14px;
   transform: translateY(-50%) rotate(45deg);
+}
+
+/* 🔥 Hover específico para conservar rotación */
+.carousel .prev:hover {
+  transform: translateY(-50%) rotate(-45deg) scale(1.2);
+}
+
+.carousel .next:hover {
+  transform: translateY(-50%) rotate(45deg) scale(1.2);
 }
 
 
