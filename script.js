@@ -127,82 +127,69 @@ closeBtn.addEventListener("click", () => {
   typewriterTimers = [];
 });
 
-// Carrusel infinito fluido (sin saltos)
 const slides = document.querySelector('.slides');
 const images = document.querySelectorAll('.slides img');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
-let index = 1; 
+let index = 0;
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
 let autoSlide;
-const interval = 4000;
 
-// Clonar primera y última imagen
-const firstClone = images[0].cloneNode(true);
-const lastClone = images[images.length - 1].cloneNode(true);
-
-firstClone.id = "first-clone";
-lastClone.id = "last-clone";
-
-slides.appendChild(firstClone);
-slides.insertBefore(lastClone, slides.firstChild);
-
-// Recontar imágenes con clones
-const slideImages = document.querySelectorAll('.slides img');
-const totalSlides = slideImages.length;
-
-// Colocar inicio en la primera imagen real
-slides.style.transform = `translateX(${-index * 100}%)`;
-
-// Función mostrar slide
-function showSlide() {
-  slides.style.transition = "transform 0.6s ease";
+// Mostrar slide
+function showSlide(i, withTransition = true) {
+  index = (i + images.length) % images.length;
+  slides.style.transition = withTransition ? "transform 0.5s ease" : "none";
   slides.style.transform = `translateX(${-index * 100}%)`;
 }
 
-// Reset al llegar a clon
-slides.addEventListener("transitionend", () => {
-  const current = slideImages[index];
-  if (current.id === "first-clone") {
-    slides.style.transition = "none";
-    index = 1;
-    slides.style.transform = `translateX(${-index * 100}%)`;
-  }
-  if (current.id === "last-clone") {
-    slides.style.transition = "none";
-    index = totalSlides - 2;
-    slides.style.transform = `translateX(${-index * 100}%)`;
-  }
-});
-
 // Botones
-nextBtn.addEventListener("click", () => {
-  if (index >= totalSlides - 1) return;
-  index++;
-  showSlide();
-});
+prevBtn.addEventListener('click', () => showSlide(index - 1));
+nextBtn.addEventListener('click', () => showSlide(index + 1));
 
-prevBtn.addEventListener("click", () => {
-  if (index <= 0) return;
-  index--;
-  showSlide();
-});
-
-// Auto slide infinito
-function startAutoSlide() {
-  autoSlide = setInterval(() => {
-    index++;
-    showSlide();
-  }, interval);
+// Autoplay
+function startAuto() {
+  autoSlide = setInterval(() => showSlide(index + 1), 4000);
 }
-
-function stopAutoSlide() {
+function stopAuto() {
   clearInterval(autoSlide);
 }
+startAuto();
 
-// Pausar auto slide con hover
-slides.addEventListener("mouseenter", stopAutoSlide);
-slides.addEventListener("mouseleave", startAutoSlide);
+// Swipe táctil con arrastre
+slides.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+  currentX = startX;
+  isDragging = true;
+  stopAuto();
+  slides.style.transition = "none";
+});
 
-// Iniciar carrusel
-startAutoSlide();
+slides.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+  currentX = e.touches[0].clientX;
+  const diff = currentX - startX;
+  slides.style.transform = `translateX(${-index * 100 + diff / slides.clientWidth * 100}%)`;
+});
+
+slides.addEventListener("touchend", () => {
+  if (!isDragging) return;
+  isDragging = false;
+
+  const diff = currentX - startX;
+  if (Math.abs(diff) > slides.clientWidth / 4) {
+    if (diff > 0) {
+      showSlide(index - 1); // swipe derecha
+    } else {
+      showSlide(index + 1); // swipe izquierda
+    }
+  } else {
+    showSlide(index); // volver al mismo
+  }
+
+  startAuto();
+});
+
+showSlide(0);
