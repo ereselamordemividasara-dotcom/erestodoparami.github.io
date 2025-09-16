@@ -128,7 +128,6 @@ closeBtn.addEventListener("click", () => {
 });
 
 const slides = document.querySelector('.slides');
-const images = document.querySelectorAll('.slides img');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
@@ -139,13 +138,14 @@ let isDragging = false;
 let autoSlide;
 
 // 🚀 Clonamos primer y último para efecto infinito
+const images = document.querySelectorAll('.slides img');
 const firstClone = images[0].cloneNode(true);
 const lastClone = images[images.length - 1].cloneNode(true);
 
 slides.appendChild(firstClone);
 slides.insertBefore(lastClone, images[0]);
 
-const allImages = document.querySelectorAll('.slides img');
+let allImages = document.querySelectorAll('.slides img'); // 🔑 refrescar nodelist
 
 // Ajuste inicial
 slides.style.transform = `translateX(${-index * 100}%)`;
@@ -182,21 +182,25 @@ function stopAuto() {
 }
 startAuto();
 
-// 📱 Swipe táctil con arrastre
+// 📱 Swipe táctil con soporte iOS
 slides.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
   currentX = startX;
   isDragging = true;
   stopAuto();
   slides.style.transition = "none";
-});
+}, { passive: true });
 
 slides.addEventListener("touchmove", (e) => {
   if (!isDragging) return;
+
+  // Evita scroll vertical en iOS
+  e.preventDefault();
+
   currentX = e.touches[0].clientX;
   const diff = currentX - startX;
   slides.style.transform = `translateX(${-index * 100 + diff / slides.clientWidth * 100}%)`;
-});
+}, { passive: false });
 
 slides.addEventListener("touchend", () => {
   if (!isDragging) return;
@@ -214,4 +218,4 @@ slides.addEventListener("touchend", () => {
   }
 
   startAuto();
-});
+}, { passive: true });
