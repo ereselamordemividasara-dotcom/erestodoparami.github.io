@@ -128,6 +128,7 @@ closeBtn.addEventListener("click", () => {
 });
 
 const slides = document.querySelector('.slides');
+const images = document.querySelectorAll('.slides img');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
