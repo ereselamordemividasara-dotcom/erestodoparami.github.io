@@ -305,9 +305,7 @@ canvas.confetti{position:absolute;top:0;left:0;width:100%;height:100%;pointer-ev
 }
 }
 @media(max-width:480px){
-  .carousel{
-  height:220px; 
-}
+  
   .carousel button{width:38px;
   height:38px;
   font-size:18px;
