@@ -227,3 +227,92 @@ function addSpinEffect(btn) {
 addSpinEffect(prevBtn);
 addSpinEffect(nextBtn);
 
+const surpriseMessages = [
+  "Prometo amarte hoy, mañana y siempre 💍💖",
+  "Eres el milagro más bonito de mi vida ✨",
+  "Mi lugar favorito es a tu lado ❤️",
+  "Amarte es mi mejor decisión 💕",
+  "Te elegiría incluso en otra vida 🌹",
+  "Mi corazón siempre será tuyo 💌"
+];
+
+let typingInterval;
+
+function createHearts(count = 10) {
+  const msg = document.getElementById("surpriseMsg");
+  const rect = msg.getBoundingClientRect();
+
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart-float";
+    heart.textContent = "💖";
+
+    // posición inicial cerca del texto
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    heart.style.left = x + (Math.random() * 40 - 20) + "px";
+    heart.style.top = y + (Math.random() * 20 - 10) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2200);
+  }
+}
+
+
+function typeWriter(element, text, speed = 60) {
+  let i = 0;
+  element.textContent = "";
+  element.classList.remove("hidden");
+
+  clearInterval(typingInterval);
+
+  typingInterval = setInterval(() => {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+    } else {
+      clearInterval(typingInterval);
+
+      // 💗 corazones al terminar
+      createHearts(12);
+    }
+  }, speed);
+}
+
+function showSurprise() {
+  const msg = document.getElementById("surpriseMsg");
+  const btn = document.querySelector(".surprise-btn");
+
+  const randomText =
+    surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
+
+  btn.style.display = "none";
+
+  typeWriter(msg, randomText, 55);
+
+  setTimeout(() => {
+    btn.style.display = "inline-block";
+  }, 6000);
+}
+
+function createBackgroundHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("bg-heart");
+
+  const icons = ["💖", "💗", "💕", "💘", "❤️"];
+  heart.textContent = icons[Math.floor(Math.random() * icons.length)];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = 7 + Math.random() * 6 + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 13000);
+}
+
+// intervalo adaptable (no satura móviles)
+setInterval(createBackgroundHeart, 900);

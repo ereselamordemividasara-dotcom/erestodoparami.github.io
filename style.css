@@ -237,6 +237,89 @@ canvas.confetti{position:absolute;top:0;left:0;width:100%;height:100%;pointer-ev
   white-space:pre-line;
 }
 
+.surprise-btn {
+  margin-top: 15px;
+  background: #ff2d6f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.surprise {
+  opacity: 1;
+  transform: translateY(10px);
+  font-style: italic;
+  color: #ff2d6f;
+  margin-top: 12px;
+  text-align: center;
+  min-height: 24px; /* evita saltos */
+}
+
+/* cursor tipo máquina */
+.surprise::after {
+  content: "▍";
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+.hidden {
+  display: none;
+}
+
+.heart-float {
+  position: absolute;
+  font-size: clamp(14px, 4vw, 28px);
+  animation: floatUp 2.2s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15vh) scale(1.6);
+  }
+}
+
+.bg-heart {
+  position: fixed;
+  bottom: -5vh;
+  font-size: clamp(12px, 4vw, 34px); /* 👈 responsive real */
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatHeart linear forwards;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.6);
+    opacity: 0;
+  }
+}
+
+
+
+
 .site-footer {
   text-align: center;
   padding: 16px 20px;
